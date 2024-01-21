@@ -46,28 +46,6 @@
     
     
     <entry>
-      <title>关于</title>
-      <link href="/project/about/index.html"/>
-      <url>/project/about/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>首页</title>
-      <link href="/project/home/index.html"/>
-      <url>/project/home/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>时间线</title>
       <link href="/project/archives/index.html"/>
       <url>/project/archives/index.html</url>
@@ -79,9 +57,9 @@
     
     
     <entry>
-      <title>分类</title>
-      <link href="/project/categories/index.html"/>
-      <url>/project/categories/index.html</url>
+      <title>关于</title>
+      <link href="/project/about/index.html"/>
+      <url>/project/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -93,6 +71,17 @@
       <title>链接</title>
       <link href="/project/link/index.html"/>
       <url>/project/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>首页</title>
+      <link href="/project/home/index.html"/>
+      <url>/project/home/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -115,6 +104,17 @@
       <title>tags</title>
       <link href="/project/tags/index.html"/>
       <url>/project/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>分类</title>
+      <link href="/project/categories/index.html"/>
+      <url>/project/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
