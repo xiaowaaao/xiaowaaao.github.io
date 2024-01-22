@@ -5,8 +5,8 @@
     
     <entry>
       <title>我的第一篇Blog</title>
-      <link href="/project/post/ed6faf44.html"/>
-      <url>/project/post/ed6faf44.html</url>
+      <link href="/post/ed6faf44.html"/>
+      <url>/post/ed6faf44.html</url>
       
         <content type="html"><![CDATA[<p>我的第一篇Blog文章</p>]]></content>
       
@@ -18,8 +18,8 @@
     
     <entry>
       <title>我的第一篇博客文章</title>
-      <link href="/project/post/b24dd347.html"/>
-      <url>/project/post/b24dd347.html</url>
+      <link href="/post/b24dd347.html"/>
+      <url>/post/b24dd347.html</url>
       
         <content type="html"><![CDATA[<ul><li>​                                                                 <strong>我的第一篇博客**</strong></li></ul><p>​                                                                                                  The First Blog</p><p>经过一天的搭建，博客平台搭建完成</p>]]></content>
       
@@ -31,8 +31,8 @@
     
     <entry>
       <title>Hello World</title>
-      <link href="/project/post/4a17b156.html"/>
-      <url>/project/post/4a17b156.html</url>
+      <link href="/post/4a17b156.html"/>
+      <url>/post/4a17b156.html</url>
       
         <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
       
@@ -46,9 +46,20 @@
     
     
     <entry>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
-      <link href="/project/about/index.html"/>
-      <url>/project/about/index.html</url>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -58,19 +69,8 @@
     
     <entry>
       <title>时间线</title>
-      <link href="/project/archives/index.html"/>
-      <url>/project/archives/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>链接</title>
-      <link href="/project/link/index.html"/>
-      <url>/project/link/index.html</url>
+      <link href="/archives/index.html"/>
+      <url>/archives/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -80,30 +80,8 @@
     
     <entry>
       <title>首页</title>
-      <link href="/project/home/index.html"/>
-      <url>/project/home/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>分类</title>
-      <link href="/project/categories/index.html"/>
-      <url>/project/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>电影</title>
-      <link href="/project/movies/index.html"/>
-      <url>/project/movies/index.html</url>
+      <link href="/home/index.html"/>
+      <url>/home/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -113,8 +91,30 @@
     
     <entry>
       <title>音乐</title>
-      <link href="/project/music/index.html"/>
-      <url>/project/music/index.html</url>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>链接</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -124,8 +124,8 @@
     
     <entry>
       <title>tags</title>
-      <link href="/project/tags/index.html"/>
-      <url>/project/tags/index.html</url>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

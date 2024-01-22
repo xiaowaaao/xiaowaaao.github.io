@@ -1,6 +1,6 @@
 // 动态心跳，更改自己的名称
 $(document).ready(function(e){
-    $('.copyright').html('©2022 <i class="fa-fw fas fa-heartbeat card-announcement-animation cc_pointer"></i> By 偷掉月亮的阿硕');
+    $('.copyright').html('©2024 <i class="fa-fw fas fa-heartbeat card-announcement-animation cc_pointer"></i> By 小w啊');
 })
 
 $(document).ready(function(e){
