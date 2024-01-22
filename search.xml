@@ -37,31 +37,9 @@
     
     
     <entry>
-      <title>链接</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>书籍</title>
-      <link href="/books/index.html"/>
-      <url>/books/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>时间线</title>
-      <link href="/archives/index.html"/>
-      <url>/archives/index.html</url>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -81,9 +59,9 @@
     
     
     <entry>
-      <title>首页</title>
-      <link href="/home/index.html"/>
-      <url>/home/index.html</url>
+      <title>音乐</title>
+      <link href="/music/index.html"/>
+      <url>/music/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -92,9 +70,20 @@
     
     
     <entry>
-      <title>音乐</title>
-      <link href="/music/index.html"/>
-      <url>/music/index.html</url>
+      <title>时间线</title>
+      <link href="/archives/index.html"/>
+      <url>/archives/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>首页</title>
+      <link href="/home/index.html"/>
+      <url>/home/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -114,9 +103,20 @@
     
     
     <entry>
-      <title>电影</title>
-      <link href="/movies/index.html"/>
-      <url>/movies/index.html</url>
+      <title>链接</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>书籍</title>
+      <link href="/books/index.html"/>
+      <url>/books/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
