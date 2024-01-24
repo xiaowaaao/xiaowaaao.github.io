@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Moectf的junk_code题解</title>
+      <link href="/post/64c44478.html"/>
+      <url>/post/64c44478.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="Moectf的junk-code题解"><a href="#Moectf的junk-code题解" class="headerlink" title="Moectf的junk_code题解"></a><strong>Moectf的junk_code</strong>题解</h1><p>首先根据题目提示可知，是一道花指令的题目：</p><p>拉入die中查询可知是win32位无壳程序</p><p>首先，shift+F12根据字符串找到主函数，F5进行反编译，如图：</p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124230736032.png" alt="image-20240124230736032"></p><p>根据伪代码可知，先让咱们输入一个36位的flag，然后根据3个条件进行判断，第一个if就是查询长度，第二个和第三个才是主要的：</p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124230913793.png" alt="image-20240124230913793"></p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124230924881.png" alt="image-20240124230924881"></p><p>两个函数都标红了，说明ida没有进行反编译出来，其中含有花指令</p><p>点击Tab键，进入汇编语言页面：</p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124231155621.png" alt="image-20240124231155621"></p><p>发现下面是一堆数据，可以知道此处花指令填充了大量的垃圾数据进行干扰反编译，所以将call指令的E8转换为NOP90即可，首先在call指令出点击U，将其重新识别为无定义，然后再修改E8位90</p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124231546715.png" alt="image-20240124231546715"></p><p>然后在004605D0处点击P，重新生成函数</p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124231652662.png" alt="image-20240124231652662"></p><p>下面的那一处也同样修改，修改完成后点击F5重新反编译</p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124231820576.png" alt="image-20240124231820576"></p><p><img src="C:\Users\waaa\AppData\Roaming\Typora\typora-user-images\image-20240124231835962.png" alt="image-20240124231835962"></p><p>反编译完是这样两个函数，根据其代码重新将其逆回去，下面给出代码；</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">data1=[0x68, 0x6A, 0x60, 0x5E, 0x6F, 0x61, 0x76, 0x74, 0x2B, 0x70, </span><br><span class="line">  0x5A, 0x6D, 0x60, 0x68, 0x2B, 0x71, 0x2E, 0x5F]</span><br><span class="line">x=[i+5 for i in data1]</span><br><span class="line">enc1=&#x27;&#x27;</span><br><span class="line">for i in range(len(x)):</span><br><span class="line">    enc1+=chr(x[i])</span><br><span class="line"></span><br><span class="line">data2=[ 0x39, 0x12, 0x0E, 0x55, 0x39, 0x0C, 0x13, 0x08, 0x0D, 0x39, </span><br><span class="line">  0x05, 0x56, 0x02, 0x55, 0x47, 0x47, 0x47, 0x1B]</span><br><span class="line">enc2=&#x27;&#x27;</span><br><span class="line">for i in range(len(data2)):</span><br><span class="line">    enc2+=chr(data2[i]^0x66)</span><br><span class="line">flag=&#x27;&#x27;</span><br><span class="line">flag=enc1+enc2</span><br><span class="line">print(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>The First Blog</title>
       <link href="/post/cd01fd4c.html"/>
       <url>/post/cd01fd4c.html</url>
@@ -26,6 +51,28 @@
     
     
     <entry>
+      <title>书籍</title>
+      <link href="/books/index.html"/>
+      <url>/books/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>时间线</title>
+      <link href="/archives/index.html"/>
+      <url>/archives/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -37,20 +84,9 @@
     
     
     <entry>
-      <title>电影</title>
-      <link href="/movies/index.html"/>
-      <url>/movies/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>分类</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>链接</title>
+      <link href="/link/index.html"/>
+      <url>/link/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -70,9 +106,20 @@
     
     
     <entry>
-      <title>时间线</title>
-      <link href="/archives/index.html"/>
-      <url>/archives/index.html</url>
+      <title>分类</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -95,28 +142,6 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>链接</title>
-      <link href="/link/index.html"/>
-      <url>/link/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>书籍</title>
-      <link href="/books/index.html"/>
-      <url>/books/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
