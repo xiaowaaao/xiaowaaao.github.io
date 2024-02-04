@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>解决Android Studio超时问题报错</title>
+      <link href="/post/c6dc6224.html"/>
+      <url>/post/c6dc6224.html</url>
+      
+        <content type="html"><![CDATA[<p>解决Android Studio连接超时的报错问题：</p><p>错误展示：</p><p>read timed out</p><p>解决：</p><p> 首先，要明白这个错误的重要原因是因为gradle的问题，因为是海外包框架，所以国内访问会很慢，从而导致访问超时，因此我们可以采用本地访问的方式将其解决。</p><p>1、查看gradle的版本，在<a href="https://services.gradle.org/distributions/">Gradle Distributions</a></p><p>[<a href="https://services.gradle.org/distributions/]">https://services.gradle.org/distributions/]</a>: </p><p>下载对应的版本，然后将其解压到C:\Users\（用户名）.gradle\wrapper\dists的目录下，</p><p>查看版本：</p><p><img src="/../images/%E8%A7%A3%E5%86%B3Android-Studio%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98%E6%8A%A5%E9%94%99/image-20240204170214357.png" alt="image-20240204170214357"></p><p>2、然后在内部进行配置：</p><p>点击File—&gt;seetings:</p><p><img src="/../images/%E8%A7%A3%E5%86%B3Android-Studio%E8%B6%85%E6%97%B6%E9%97%AE%E9%A2%98%E6%8A%A5%E9%94%99/image-20240204170344612.png" alt="image-20240204170344612"></p><p>然后就可以进行正常访问</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 安卓逆向 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 安卓逆向 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python学习</title>
       <link href="/post/fbaff1b6.html"/>
       <url>/post/fbaff1b6.html</url>
@@ -87,20 +112,9 @@
     
     
     <entry>
-      <title>时间线</title>
-      <link href="/archives/index.html"/>
-      <url>/archives/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>书籍</title>
-      <link href="/books/index.html"/>
-      <url>/books/index.html</url>
+      <title>首页</title>
+      <link href="/home/index.html"/>
+      <url>/home/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -120,9 +134,9 @@
     
     
     <entry>
-      <title>首页</title>
-      <link href="/home/index.html"/>
-      <url>/home/index.html</url>
+      <title>书籍</title>
+      <link href="/books/index.html"/>
+      <url>/books/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -134,17 +148,6 @@
       <title>标签</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>电影</title>
-      <link href="/movies/index.html"/>
-      <url>/movies/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -167,6 +170,28 @@
       <title>链接</title>
       <link href="/link/index.html"/>
       <url>/link/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>电影</title>
+      <link href="/movies/index.html"/>
+      <url>/movies/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>时间线</title>
+      <link href="/archives/index.html"/>
+      <url>/archives/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
