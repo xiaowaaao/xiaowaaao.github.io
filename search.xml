@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>SICTF题解记录Round3</title>
+      <link href="/post/c7667ffd.html"/>
+      <url>/post/c7667ffd.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="SICTF题解记录Round3："><a href="#SICTF题解记录Round3：" class="headerlink" title="SICTF题解记录Round3："></a>SICTF题解记录Round3：</h1><h2 id="ArtBreaker："><a href="#ArtBreaker：" class="headerlink" title="ArtBreaker："></a>ArtBreaker：</h2><p>拖进ida给出提示，显示图形太大，无法在屏幕上显示，所以在Options里面修改最大字节数：</p><p><img src="/../images/SICTF%E9%A2%98%E8%A7%A3%E8%AE%B0%E5%BD%95Round3/image-20240221154937337.png" alt="image-20240221154937337"></p><p>然后看流程图：</p><p><img src="/../images/SICTF%E9%A2%98%E8%A7%A3%E8%AE%B0%E5%BD%95Round3/image-20240221155001389.png" alt="image-20240221155001389"></p><h2 id="SweetTofu："><a href="#SweetTofu：" class="headerlink" title="SweetTofu："></a>SweetTofu：</h2><p>1、拖进Die中发现是elf文件，ida查看</p><p><img src="/../images/SICTF%E9%A2%98%E8%A7%A3%E8%AE%B0%E5%BD%95Round3/image-20240221170649505.png" alt="image-20240221170649505"></p><p>可见，关键函数必定在if语句中</p><p>看汇编：</p><p><img src="/../images/SICTF%E9%A2%98%E8%A7%A3%E8%AE%B0%E5%BD%95Round3/image-20240221170821002.png" alt="image-20240221170821002"></p><p>注意每一个call函数，发现又一个调用寄存器的地址，所以动态调试找到这个寄存器里的地址</p><p>打断点，停在这些call函数前</p><p>发现2最后一个call函数就是关键函数</p><p><img src="/../images/SICTF%E9%A2%98%E8%A7%A3%E8%AE%B0%E5%BD%95Round3/image-20240221171136591.png" alt="image-20240221171136591"></p><p>提取数据，异或0x66得到flag</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data=[<span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x07</span>, <span class="number">0x01</span>, <span class="number">0x1D</span>, <span class="number">0x3F</span>, <span class="number">0x09</span>, <span class="number">0x13</span>, <span class="number">0x39</span>, <span class="number">0x07</span>,</span><br><span class="line">  <span class="number">0x08</span>, <span class="number">0x02</span>, <span class="number">0x39</span>, <span class="number">0x2F</span>, <span class="number">0x39</span>, <span class="number">0x21</span>, <span class="number">0x09</span>, <span class="number">0x02</span>, <span class="number">0x41</span>, <span class="number">0x15</span>,</span><br><span class="line">  <span class="number">0x39</span>, <span class="number">0x25</span>, <span class="number">0x14</span>, <span class="number">0x03</span>, <span class="number">0x07</span>, <span class="number">0x12</span>, <span class="number">0x0F</span>, <span class="number">0x09</span>, <span class="number">0x08</span>, <span class="number">0x47</span>,</span><br><span class="line">  <span class="number">0x22</span>, <span class="number">0x09</span>, <span class="number">0x08</span>, <span class="number">0x41</span>, <span class="number">0x12</span>, <span class="number">0x39</span>, <span class="number">0x04</span>, <span class="number">0x03</span>, <span class="number">0x39</span>, <span class="number">0x15</span>,</span><br><span class="line">  <span class="number">0x03</span>, <span class="number">0x14</span>, <span class="number">0x0F</span>, <span class="number">0x09</span>, <span class="number">0x13</span>, <span class="number">0x15</span>, <span class="number">0x47</span>, <span class="number">0x1B</span>]</span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(data)):</span><br><span class="line">    flag+=(<span class="built_in">chr</span>(data[i]^<span class="number">0x66</span>))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line">flag&#123;You_and_I_God<span class="string">&#x27;s_Creation!Don&#x27;</span>t_be_serious!&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>“汇编语言学习”</title>
       <link href="/post/f8ab34c2.html"/>
       <url>/post/f8ab34c2.html</url>
