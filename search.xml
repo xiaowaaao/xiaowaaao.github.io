@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>P1011-[NOIP1998-提高组]-车站</title>
+      <link href="/post/9c51e32f.html"/>
+      <url>/post/9c51e32f.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="NOIP1998-提高组-车站"><a href="#NOIP1998-提高组-车站" class="headerlink" title="[NOIP1998 提高组] 车站"></a>[NOIP1998 提高组] 车站</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>火车从始发站（称为第 $1$ 站）开出，在始发站上车的人数为 $a$，然后到达第 $2$ 站，在第 $2$ 站有人上、下车，但上、下车的人数相同，因此在第 $2$ 站开出时（即在到达第 $3$ 站之前）车上的人数保持为 $a$ 人。从第 $3$ 站起（包括第 $3$ 站）上、下车的人数有一定规律：上车的人数都是前两站上车人数之和，而下车人数等于上一站上车人数，一直到终点站的前一站（第 $n-1$ 站），都满足此规律。现给出的条件是：共有 $n$ 个车站，始发站上车的人数为 $a$，最后一站下车的人数是 $m$（全部下车）。试问 $x$ 站开出时车上的人数是多少？</p><h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>输入只有一行四个整数，分别表示始发站上车人数 $a$，车站数 $n$，终点站下车人数 $m$ 和所求的站点编号 $x$。</p><h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>输出一行一个整数表示答案：从 $x$ 站开出时车上的人数。</p><h2 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h2><h3 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 7 32 4</span><br></pre></td></tr></table></figure><h3 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">13</span><br></pre></td></tr></table></figure><h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>对于全部的测试点，保证 $1 \leq a \leq 20$，$1 \leq x \leq n \leq 20$，$1 \leq m \leq 2 \times 10^4$。</p><p>NOIP1998 提高组 第一题</p><h2 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h2><p>1、此题类型归于斐波那契数列，所以应该考虑往这个方面作答</p><p>2、此题使用数学很容易解答，关键在于有一个变量不好直接用代码进行表示。所以要从后往前进行计算出他的数值才能得到结果</p><p>3、一次不行，便考虑使用两次或者多次</p><h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a,n,m,x=<span class="built_in">map</span>(<span class="built_in">int</span>,<span class="built_in">input</span>().split())</span><br><span class="line">num1=[<span class="number">0</span>]*n</span><br><span class="line">num2=[<span class="number">0</span>]*n</span><br><span class="line">num1[<span class="number">0</span>]=num1[<span class="number">1</span>]=num2[<span class="number">3</span>]=<span class="number">1</span></span><br><span class="line">num1[<span class="number">2</span>]=num1[<span class="number">3</span>]=<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>,n):</span><br><span class="line">    num1[i]=num1[i-<span class="number">1</span>]+num1[i-<span class="number">2</span>]-<span class="number">1</span></span><br><span class="line">    num2[i]=num2[i-<span class="number">1</span>]+num2[i-<span class="number">2</span>]+<span class="number">1</span></span><br><span class="line">b=<span class="built_in">int</span>((m-a*num1[n-<span class="number">2</span>])/num2[n-<span class="number">2</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">int</span>(a*num1[x-<span class="number">1</span>]+b*num2[x-<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 蓝桥杯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 蓝桥杯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SICTF题解记录Round3</title>
       <link href="/post/c7667ffd.html"/>
       <url>/post/c7667ffd.html</url>
