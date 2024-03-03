@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>松散子序列题解</title>
+      <link href="/post/a4483e6b.html"/>
+      <url>/post/a4483e6b.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="松散子序列"><a href="#松散子序列" class="headerlink" title="松散子序列"></a>松散子序列</h3><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给定一个仅含小写字母的字符串 s ，假设 s 的一个子序列 t 的第 i 个字符 对应了原字符串中的第 pi 个字符。我们定义 s 的一个松散子序列为：对于 i &gt; 1 总是有 pi − pi−1 ≥ 2 。设一个子序列的价值为其包含的每个字符的价值之和 ( a ∼ z 分别为 1 ∼ 26 ) 。 求 s 的松散子序列中的最大价值。</p><h3 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h3><p>输入一行包含一个字符串 s 。</p><h3 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h3><p>输出一行包含一个整数表示答案。</p><h3 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">azaazaz</span><br></pre></td></tr></table></figure><h3 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h3><p>78</p><h2 id="方法解析："><a href="#方法解析：" class="headerlink" title="方法解析："></a>方法解析：</h2><p>此题的·关键在于是否可以读懂题目，并且写出状态转移方程，注意到题目中的Pi-Pi-1&gt;&#x3D;2，所以就说明必须不能选择相邻的字符，必须跳着选择：</p><p>状态转移方程的解释：</p><p>还是老样子从后往前分析，最后一个是i的数据，如果第i个数据不选，那么这个最长子序列就是从第i-1里面选择，就是</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(dp[i-1])</span><br></pre></td></tr></table></figure><p>如果选择第i个数据，那么第i-1个数据就不能选择，就必须从i-2的里面选择，所以此时就是</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i-2]+ord(s[i])-96</span><br></pre></td></tr></table></figure><p>最终的结果就是上面两个选最大：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i]=max(dp[i-1],dp[i-2]+ord(s[i])-96)</span><br></pre></td></tr></table></figure><h2 id="代码示例："><a href="#代码示例：" class="headerlink" title="代码示例："></a>代码示例：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">s=input()</span><br><span class="line">dp=[0]*len(s)</span><br><span class="line">dp[0]=ord(s[0])-96</span><br><span class="line">dp[1]=max(ord(s[0])-96,ord(s[1])-96)</span><br><span class="line">for i in range(2,len(s)):</span><br><span class="line">  dp[i]=max(dp[i-1],dp[i-2]+ord(s[i])-96)</span><br><span class="line">print(dp[len(s)-1])</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>附上：上面代码还需要加上第一个第二个的输出，否则会扣分，我没写</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 蓝桥杯 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 蓝桥杯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>P1011-[NOIP1998-提高组]-车站</title>
       <link href="/post/9c51e32f.html"/>
       <url>/post/9c51e32f.html</url>
