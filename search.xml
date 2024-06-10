@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>C的学习</title>
+      <link href="/post/e14d0785.html"/>
+      <url>/post/e14d0785.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="C的学习："><a href="#C的学习：" class="headerlink" title="C的学习："></a>C的学习：</h1><h2 id="字节对齐："><a href="#字节对齐：" class="headerlink" title="字节对齐："></a>字节对齐：</h2><p><strong>用空间换取时间</strong></p><p>定义：一个变量占用n个字节，那么这个变量的起始地址一定是n的<strong>整数倍</strong>，即：存放起始地址%n&#x3D;0</p><p>​如果是结构体，他的起始地址是结构体中<strong>最大类型</strong>的整数倍</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span>&#123;</span></span><br><span class="line"><span class="type">char</span> a;</span><br><span class="line"><span class="type">int</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(“%d”,<span class="keyword">sizeof</span>(Test))</span><br><span class="line"></span><br><span class="line"><span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//int是四字节，所以就是a占四个，b占四个，即使用不到，也要占有</span></span><br></pre></td></tr></table></figure><p>但是有时候我们不需要浪费太多的空间，所以我们就需要使用自定义的字节对齐，</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack(num)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> pack()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//例子：</span></span><br><span class="line"> <span class="meta">#<span class="keyword">pragma</span> pack(1)</span></span><br><span class="line"> </span><br><span class="line"> sttuct Test&#123;</span><br><span class="line"> <span class="type">char</span> a;</span><br><span class="line"> <span class="type">int</span> b;</span><br><span class="line"> <span class="type">char</span> c;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*此时的空间就是：</span></span><br><span class="line"><span class="comment">a</span></span><br><span class="line"><span class="comment">b</span></span><br><span class="line"><span class="comment">b</span></span><br><span class="line"><span class="comment">b</span></span><br><span class="line"><span class="comment">b</span></span><br><span class="line"><span class="comment">c</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">#此时的起始地址是 min（num,最大类型）</span><br><span class="line">#所以是<span class="number">1</span>，起始地址就是<span class="number">1</span>的整数倍</span><br></pre></td></tr></table></figure><h2 id="指针与数组的转换："><a href="#指针与数组的转换：" class="headerlink" title="指针与数组的转换："></a>指针与数组的转换：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*(p+i)=p[i]</span><br><span class="line">*(*(p+i)+k)=p[i][k]</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="条件编译与文件包含"><a href="#条件编译与文件包含" class="headerlink" title="条件编译与文件包含"></a>条件编译与文件包含</h2><h3 id="条件编译："><a href="#条件编译：" class="headerlink" title="条件编译："></a>条件编译：</h3><p>可以根据判断语句，决定是否进行编译，从而进行节约节约空间和时间</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> 0</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;yes&quot;</span>)</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"><span class="comment">//因为是0，所以他运行时候不会执行</span></span><br><span class="line">    </span><br></pre></td></tr></table></figure><h3 id="文件包含："><a href="#文件包含：" class="headerlink" title="文件包含："></a>文件包含：</h3><p>可以使用#include &lt;&gt;  或者 #include “”</p><p>两者区别：</p><p>&lt;&gt;:只查找其文件安装的路径是否有这个文件，不会查找自己编写的头文件</p><p>“”：首先查找当前目录下的文件，然后再去查找安装位置下的文件</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> C </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CISCN-RE-WP</title>
       <link href="/post/45543969.html"/>
       <url>/post/45543969.html</url>
