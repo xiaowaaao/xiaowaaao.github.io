@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>基于U-net网络实现的对图像去雾识别与去除 | 贩卖日落</title><meta name="author" content="小Waaa"><meta name="copyright" content="小Waaa"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基于U-net网络实现的对图像去雾识别与去除1  研究背景以及研究意义现实需求去雾技术在现实生活中具有广泛的应用需求和重要意义。在军事中，它可以提供清晰的图像支持情报收集和作战决策。在生活中，去雾处理改善了交通监控、安全监控和消费电子产品的图像质量，提升了用户体验。此外，去雾技术还在灾害响应、医学影像分析和气象预测中发挥关键作用，帮助提高信息获取的准确性和效率.去雾技术在多个领域的广泛应用展示了其">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于U-net网络实现的对图像去雾识别与去除">
+<meta property="og:url" content="http://xiaowaaa.asia/post/d0695f23.html">
+<meta property="og:site_name" content="贩卖日落">
+<meta property="og:description" content="基于U-net网络实现的对图像去雾识别与去除1  研究背景以及研究意义现实需求去雾技术在现实生活中具有广泛的应用需求和重要意义。在军事中，它可以提供清晰的图像支持情报收集和作战决策。在生活中，去雾处理改善了交通监控、安全监控和消费电子产品的图像质量，提升了用户体验。此外，去雾技术还在灾害响应、医学影像分析和气象预测中发挥关键作用，帮助提高信息获取的准确性和效率.去雾技术在多个领域的广泛应用展示了其">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xiaowaaa.asia/img/avatar.png">
+<meta property="article:published_time" content="2024-06-21T04:47:29.000Z">
+<meta property="article:modified_time" content="2024-06-21T05:05:14.239Z">
+<meta property="article:author" content="小Waaa">
+<meta property="article:tag" content="模式识别">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xiaowaaa.asia/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://xiaowaaa.asia/post/d0695f23.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 小Waaa","link":"链接: ","source":"来源: 贩卖日落","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基于U-net网络实现的对图像去雾识别与去除',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-21 13:05:14'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/font.css"><link rel="stylesheet" href="/css/myStyle.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="贩卖日落"><span class="site-name">贩卖日落</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间线</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">基于U-net网络实现的对图像去雾识别与去除</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-21T04:47:29.000Z" title="发表于 2024-06-21 12:47:29">2024-06-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-21T05:05:14.239Z" title="更新于 2024-06-21 13:05:14">2024-06-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB/">模式识别</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>23分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="基于U-net网络实现的对图像去雾识别与去除"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="基于U-net网络实现的对图像去雾识别与去除"><a href="#基于U-net网络实现的对图像去雾识别与去除" class="headerlink" title="基于U-net网络实现的对图像去雾识别与去除"></a>基于U-net网络实现的对图像去雾识别与去除</h1><h1 id="1-研究背景以及研究意义"><a href="#1-研究背景以及研究意义" class="headerlink" title="1  研究背景以及研究意义"></a>1  研究背景以及研究意义</h1><h2 id="现实需求"><a href="#现实需求" class="headerlink" title="现实需求"></a>现实需求</h2><p>去雾技术在现实生活中具有广泛的应用需求和重要意义。在军事中，它可以提供清晰的图像支持情报收集和作战决策。在生活中，去雾处理改善了交通监控、安全监控和消费电子产品的图像质量，提升了用户体验。此外，去雾技术还在灾害响应、医学影像分析和气象预测中发挥关键作用，帮助提高信息获取的准确性和效率.去雾技术在多个领域的广泛应用展示了其在提升视觉质量、优化决策支持和改善用户体验方面的重要意义。随着技术的不断进步和应用场景的拓展，去雾技术将继续发挥着越来越重要的作用，推动相关领域的发展和创新。</p>
+<h2 id="图像去雾的常见方法"><a href="#图像去雾的常见方法" class="headerlink" title="图像去雾的常见方法"></a>图像去雾的常见方法</h2><p>· <strong>基于物理模型的方法：</strong> 这种方法建立在对雾化图像和原始场景之间物理过程的详细建模基础上。通过估计场景的深度信息和雾的密度，从而去除图像中的雾化效应。它需要精确的先验知识和对场景光学参数的准确描述，因此通常需要较多的人工设置和参数调整。</p>
+<p>· <strong>基于先验信息的方法：</strong> 这种方法利用图像中存在的先验信息，如纹理、边缘和梯度等，来推断场景的深度信息并去除雾化效应。与物理模型方法相比，它更加灵活，可以根据不同的应用场景进行调整和优化，但仍然依赖于对先验信息的有效利用。</p>
+<p>· <strong>基于暗通道先验的方法：</strong> 这是一种流行的方法，它利用图像中的暗通道来估计场景中的深度信息和雾的密度。通过暗通道先验，可以有效地去除图像中的雾化效应，而无需复杂的物理模型或大量的先验知识。这种方法相对简单直观，适用于多种实际应用场景。</p>
+<p>· <strong>基于深度学习的方法：</strong> 这种方法利用深度神经网络从大量数据中学习复杂的图像特征和去雾方法。相比传统方法，它不需要显式建立物理模型或手动提取特征，而是通过端到端的学习过程自动学习图像中的深度和雾的分布规律，从而实现高效的去雾效果。这使得它能够适应各种复杂的雾化情况和不同的应用场景。</p>
+<h2 id="利用模式识别与机器学习进行图像去雾"><a href="#利用模式识别与机器学习进行图像去雾" class="headerlink" title="利用模式识别与机器学习进行图像去雾"></a>利用模式识别与机器学习进行图像去雾</h2><p>· <strong>数据准备：</strong></p>
+<p> 收集包含雾化图像和对应清晰图像（即没有雾的原始图像）的数据集。这些数据集通常需要大量的图像对，并且应涵盖各种雾化程度和不同的场景。</p>
+<p>· <strong>网络选择或设计：</strong></p>
+<p>选择适合任务的深度学习模型架构，例如基于卷积神经网络（CNN）的模型。常见的选择包括改进的U-Net、GANs（生成对抗网络）等。根据具体需求，可能需要进行网络结构的调整或优化。</p>
+<p>· <strong>数据预处理：</strong></p>
+<pre><code> 对收集到的数据进行预处理，包括调整图像大小、归一化像素值等操作。有时还需要考虑数据增强，以增加模型的泛化能力。
+</code></pre>
+<p>· <strong>模型训练：</strong></p>
+<pre><code> 使用准备好的数据集对选择或设计的深度学习模型进行训练。训练过程中，模型通过学习雾化图像和清晰图像之间的映射关系来优化其参数。
+</code></pre>
+<p>· <strong>损失函数选择：</strong></p>
+<p> 设计或选择适当的损失函数来衡量生成的去雾图像与真实清晰图像之间的差异。常见的损失函数包括均方误差（MSE）、感知损失（Perceptual loss）等。</p>
+<p>· <strong>优化器选择与参数调整：</strong></p>
+<p>使用合适的优化器（如Adam、SGD等）来调整模型的权重和偏置，以最小化损失函数。同时，可能需要调整学习率、正则化参数等超参数。</p>
+<p>· <strong>模型评估与调优：</strong></p>
+<p>在训练过程中，通过验证集或交叉验证方法评估模型的性能。根据评估结果，调整模型结构、损失函数或优化策略，以提升模型的去雾效果和泛化能力。</p>
+<p>· <strong>模型应用与部署：</strong></p>
+<p> 完成训练后，对新的雾化图像进行去雾预测。这通常涉及将训练好的模型部署到实际应用环境中，如移动设备、云服务或嵌入式系统中。</p>
+<h1 id="2-工具及原理"><a href="#2-工具及原理" class="headerlink" title="2  工具及原理"></a>2  工具及原理</h1><h2 id="1-U-Net神经网络"><a href="#1-U-Net神经网络" class="headerlink" title="1 U-Net神经网络"></a>1 U-Net神经网络</h2><p>U-Net神经网络是一种深度学习模型，主要用于图像分割任务。它由编码器和解码器两部分组成，其中编码器部分用于提取输入图像的特征，解码器部分则用于将这些特征映射到输出分割图像中。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps1.jpg" alt="img"> </p>
+<p>下面对U-Net 神经网络的详细实现和原理进行说明：</p>
+<h2 id="编码器部分"><a href="#编码器部分" class="headerlink" title="编码器部分"></a>编码器部分</h2><p>U-Net神经网络的编码器部分是整个网络的特征提取和抽象层。它由多个卷积层和池化层组成，旨在逐步减少输入图像的空间尺寸并提取其层次化特征表示。</p>
+<p>首先是卷积层，在U-Net的编码器中，每个卷积层使用多个卷积核对输入图像进行卷积运算。卷积核可以看作是一组学习到的滤波器，每个滤波器对输入图像执行卷积操作以生成特征图。随着网络的深入，通常会增加每个卷积层中的卷积核数量，这样可以逐步增加网络对输入图像复杂特征的学习能力。</p>
+<p>每个卷积层之后通常会应用一个ReLU（Rectified Linear Unit）激活函数。ReLU函数将所有负数输入值置零，并保持正数值不变，这有助于引入非线性特性，使网络能够学习更复杂的输入数据分布。</p>
+<p>然后是池化层，在卷积层之后，U-Net使用池化层来减少特征图的空间尺寸。池化层通常采用最大池化或平均池化操作，以减少特征图的维度并保留重要的特征信息。最大池化从每个池化窗口中选择最大值，而平均池化则计算每个池化窗口的平均值。池化操作有助于网络在更高层次上理解输入图像的结构和内容，同时减少了后续卷积层所需处理的计算量，提高了整体的计算效率。</p>
+<p>每个编码器阶段通常由两个卷积层和一个池化层组成。第一层卷积层负责从输入图像中提取初级特征，第二层卷积层进一步加深特征的抽象层次，而池化层则在这些卷积层之后进行特征图的下采样。</p>
+<p>通过多个这样的编码器阶段，U-Net逐步提取出输入图像的层次化特征表示，这些特征表示不仅包含低级的边缘和纹理信息，还包括高级的语义和结构信息。这种设计使得U-Net在各种图像处理任务中表现优异，尤其在图像分割和去雾等任务中展现了其强大的能力。</p>
+<h2 id="解码器部分"><a href="#解码器部分" class="headerlink" title="解码器部分"></a>解码器部分</h2><p>在U-Net神经网络中，解码器部分是将编码器提取的特征信息映射到输出图像中的关键部分。解码器与编码器相对应，通过多个卷积层和上采样层实现特征的逆映射和图像的重建。</p>
+<p>解码器的每一层都包括卷积层，这些卷积层接收来自上一层的特征映射作为输入，并输出更高级别、更语义化的特征表示。卷积层的作用是学习输入特征的非线性映射，以便最终生成与原始输入图像结构和内容相似的输出图像。</p>
+<p>U-Net的独特之处在于引入了跳过连接，也称为跳跃连接或残差连接。这些连接将编码器中对应层级的特征图直接连接到解码器的对应层级，以便在解码器中保留更多细节信息。跳过连接通过将特征图拼接在一起，允许网络轻松地恢复细小的结构和边缘信息，从而提高了图像分割等任务的精度。</p>
+<p>在卷积层之后，解码器使用上采样层来逆向操作编码器中的池化操作。由于编码器的池化层逐步减小了特征图的空间尺寸，解码器需要将特征图像的尺寸扩大到与原始输入图像相同的尺寸。上采样层通常通过反卷积或插值操作实现，使得特征图像能够恢复到与编码器输入相同的分辨率。</p>
+<p>解码器部分的设计使得U-Net在图像处理中非常有效，特别是在需要从输入图像中精确分割目标或重建细节的任务中表现突出。通过结合卷积层、跳过连接和上采样层，U-Net能够同时保持对局部细节和全局语义的高效处理，使其成为许多计算机视觉任务中的首选模型之一。</p>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>U-Net 神经网络在训练过程中通常使用交叉熵损失函数，以衡量模型的预测结果与真实标签之间的差距。对于每个像素点，交叉熵损失函数可以计算预测像素类别和真实像素类别之间的差异。在计算整个图像的损失函数时，通常使用像素级别的平均值。</p>
+<p>交叉熵损失函数：</p>
+<p>​       	<img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps2.jpg" alt="img"></p>
+<p>像素级平均损失函数：</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps3.jpg" alt="img"> </p>
+<h2 id="训练过程"><a href="#训练过程" class="headerlink" title="训练过程"></a>训练过程</h2><p>U-Net 神经网络通常使用反向传播算法进行训练。在每个训练迭代中，U-Net 神经网络将输入图像传递到模型中进行前向计算，以产生分割结果。然后，将分割结果与真实标签进行比较，计算损失函数并通过反向传播算法更新网络参数。</p>
+<p>在训练过程中，通常使用一些数据增强技术，例如随机旋转、随机翻转和随机裁剪等，以增加数据的多样性和数量，并提高模型的鲁棒性。</p>
+<p>总的来说，U-Net 神经网络的主要特点是编码器-解码器结构和跳过连接的使用。这些特点使 U-Net 神经网络在图像分割任务中表现出色，并被广泛应用于医学图像分割、自然图像分割和目标检测等领域。</p>
+<h2 id="利用u-net网络实现图像去雾的过程概述"><a href="#利用u-net网络实现图像去雾的过程概述" class="headerlink" title="利用u-net网络实现图像去雾的过程概述"></a>利用u-net网络实现图像去雾的过程概述</h2><p>(1)<strong>数据准备：</strong></p>
+<p> 收集包含雾化图像和对应清晰图像（即没有雾的原始图像）的数据集。确保数据集覆盖各种雾化程度和不同的场景。</p>
+<p>(2)<strong>数据预处理：</strong></p>
+<p>对数据进行预处理，包括调整图像大小、归一化像素值、数据增强等操作。预处理过程中还可以对雾化图像进行一些预处理，如增强对比度或锐化。</p>
+<p>（3)<strong>构建U-Net模型：</strong></p>
+<p> 设计或选择适合去雾任务的U-Net网络结构。U-Net由编码器（下采样路径）和解码器（上采样路径）组成，能够有效地学习图像特征和进行高分辨率图像的重建。</p>
+<p>（4)<strong>损失函数选择：</strong></p>
+<p> 选择合适的损失函数来衡量生成的去雾图像与真实清晰图像之间的差异。常用的损失函数包括均方误差（MSE）、感知损失（Perceptual loss）等，可以根据具体情况进行选择或组合。</p>
+<p> (5)<strong>训练模型：</strong></p>
+<p>使用准备好的数据集对U-Net模型进行训练。训练过程中，模型通过反向传播优化损失函数，学习雾化图像到清晰图像的映射关系。</p>
+<p> （6)<strong>优化器选择与调参：</strong></p>
+<p>选择合适的优化器（如Adam、SGD等），并调整学习率、正则化参数等超参数。通过调整优化器和参数来提升模型的收敛速度和性能。</p>
+<p> （7)<strong>模型评估与验证：</strong></p>
+<p>在训练过程中使用验证集评估模型的性能。可以通过计算损失函数值或其他评估指标（如PSNR、SSIM等）来衡量模型在未见过的数据上的泛化能力。</p>
+<p> （8)<strong>模型应用与部署：</strong></p>
+<p> 训练完成后，将训练好的U-Net模型应用于实际的去雾任务中。这包括将模型部署到移动设备、云服务或嵌入式系统中，以处理新的雾化图像。</p>
+<p> （9)<strong>后处理（可选）：</strong></p>
+<p> 根据实际需求，可以对生成的清晰图像进行后处理，如锐化、色彩校正等，以进一步提升视觉质量和图像细节。</p>
+<h1 id="3-代码实现"><a href="#3-代码实现" class="headerlink" title="3. 代码实现"></a>3. 代码实现</h1><h2 id="目录结构："><a href="#目录结构：" class="headerlink" title="目录结构："></a>目录结构：</h2><p>首先，先来看一下目录结构：</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps4.jpg" alt="img"> </p>
+<p>data.py是数据集加载函数</p>
+<p>test.py是测试代码</p>
+<p>train.py是训练代码</p>
+<p>UI.py是UI界面代码</p>
+<p>Unet_principle.py是Unet代码原理部分</p>
+<h2 id="训练程序部分"><a href="#训练程序部分" class="headerlink" title="训练程序部分"></a>训练程序部分</h2><p>首先导入所需的库和模块</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps5.jpg" alt="img"> </p>
+<p>定义训练函数，该函数接受有雾图像和清晰图像的路径，批大小和训练周期作为输入参数。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps6.jpg" alt="img"> </p>
+<p>加载训练数据集，通过调用dataloader.dehazing_loader函数加载训练数据集，并使用DataLoader封装数据集，以便进行批量训练。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps7.jpg" alt="img"> </p>
+<p>使用均方误差（MSE）作为损失函数，通过 nn.MSELoss().cuda() 定义。均方误差用于衡量网络输出与真实无雾图像之间的差异。</p>
+<p>使用Adam优化器，通过 torch.optim.Adam 定义。优化器的作用是根据损失函数的梯度来更新模型的权重，以减少损失。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps8.jpg" alt="img"> </p>
+<p>​	定义学习率调度器，使用StepLR(optimizer, step_size&#x3D;10, gamma&#x3D;0.1)定义，学习率调度器的作用是用于每隔一定步数（step_size），将优化器的学习率乘以一个衰减因子（gamma），以帮助模型更快地收敛到最优解，可以进行对程序的优化。</p>
+<p>定义混合精度训练工具，通过 scaler.scale(loss).backward() 和 scaler.step(optimizer) 实现。它帮助提高训练速度和模型稳定性，特别是在GPU上训练大规模模型时非常有用。</p>
+<p>同时我使用了日志记录对每次去雾处理进行记录，方便后续进行参数地修改，使用TensorBoard的SummaryWriter记录训练过程中的损失值，以便后续分析和可视化分析</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps9.jpg" alt="img"> </p>
+<p>设置模型为训练模式，开始训练循环</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps10.jpg" alt="img"> </p>
+<p>将有雾图像输入U-Net模型，得到去雾后的图像，然后计算生成图像与真实清晰图像之间的损失。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps11.jpg" alt="img"> </p>
+<p>更新模型参数，使用优化器进行反向传播和参数更新。首先将梯度置零，然后执行反向传播计算梯度，接着使用梯度裁剪来防止梯度爆炸问题，最后调用优化器的step()方法更新模型参数。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps12.jpg" alt="img"> </p>
+<p>计算当前训练周期的损失，累加当前批次的损失，以便于计算整个训练周期的平均损失，并打印训练周期的索引和损失值，保存训练模型。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps13.jpg" alt="img"> </p>
+<h2 id="U-Net网络程序部分"><a href="#U-Net网络程序部分" class="headerlink" title="U-Net网络程序部分"></a>U-Net网络程序部分</h2><p>首先还是导入数据包</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps14.jpg" alt="img"> </p>
+<p>DoubleConv 模块包含两个连续的卷积层，每个卷积层后面跟着一个批归一化层和ReLU激活函数。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps15.jpg" alt="img"> </p>
+<p>Down 模块通过最大池化操作将特征图的大小减半，然后接上一个DoubleConv模块。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps16.jpg" alt="img"> </p>
+<p>接下来，对U-Net 模型的上采样部分进行了优化，采用了双线性插值方法，实现了 U-Net 解码器中的上采样操作。它将特征图像进行上采样，然后与编码器部分传递过来的相应特征图像进行拼接，并通过卷积操作融合特征，使用双线性插值进行上采样，将尺寸扩大两倍。</p>
+<p>OutConv 模块通过一个1x1卷积层将特征图通道数转换为所需的类别数。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps17.jpg" alt="img"> </p>
+<p>U-Net 是一种用于图像分割的神经网络架构，由编码器（downsampling path）和解码器（upsampling path）两部分组成。</p>
+<p>编码器部分由多个 Down 模块组成，每个模块通过卷积和池化操作逐步减少输入特征图的空间维度，并提取高级特征。</p>
+<p>解码器部分通过多个 Up 模块逐步恢复特征图的空间维度。每个 Up 模块不仅进行上采样，还将相应的编码器特征图通过跳跃连接（skip connection）拼接到解码器层上，以融合低级和高级特征。</p>
+<p>在解码器的上采样过程中，采用了双线性插值（bilinear interpolation）来替代传统的反卷积操作，进一步提升了上采样过程中的特征图分辨率,此处是优化地地方</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps18.jpg" alt="img"> </p>
+<h2 id="数据加载器部分"><a href="#数据加载器部分" class="headerlink" title="数据加载器部分"></a>数据加载器部分</h2><p>首先导入数据包：</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps19.jpg" alt="img"> </p>
+<p>populate_train_list 函数用于生成训练和验证数据列表，将指定路径下的原始图像和对应的有雾图像进行配对，并将它们分别存储在训练列表和验证列表中；首先，初始化空的训练和验证列表， 遍历每个有雾图像路径，从中提取文件名；根据图像文件名的前两个部分创建键值，将相同键值的图像存储在字典中；初始化训练和验证键值列表；根据键值的数量，将所有键值存储在 train_keys 列表中；遍历所有键值，将对应的图像路径添加到训练或验证列表中，使用 random.shuffle() 函数随机打乱训练和验证列表的顺序，最后返回生成的训练和验证列表。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps20.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps21.jpg" alt="img"> </p>
+<p>dehazing_loader 类是一个自定义的 PyTorch 数据集类，用于加载去雾图像数据，他继承自 torch.utils.data.Dataset，并实现了所需的两个方法，orig_images_path 和 hazy_images_path：原始图像和有雾图像的文件路径；mode：指定数据集的模式，默认为 ‘train’，可以设置为 ‘val’ 以使用验证集；populate_train_list：调用此函数生成训练和验证数据列表；self.data_list：根据 mode 参数决定使用训练集还是验证集，并打印相应的数据集大小，获取数据集中的索引；data_orig_path 和 data_hazy_path：通过索引获取对应的原始和有雾图像的路径；Image.open：打开图像文件；convert(“RGB”)：将图像转换为 RGB 模式；resize((576, 576), Image.LANCZOS)：调整图像大小为 576x576 像素，使用 LANCZOS 插值法；np.asarray() &#x2F; 255.0：将图像转换为 NumPy 数组，并将像素值归一化到 [0, 1]；torch.from_numpy().float()：将 NumPy 数组转换为 PyTorch 张量，并指定数据类型为浮点数，permute(2, 0, 1)：调整张量维度顺序，从 (H, W, C) 改为 (C, H, W)，最后返回数据集的总长度，即包含的图像对数量。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps22.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps23.jpg" alt="img"> </p>
+<h2 id="图像去雾程序部分"><a href="#图像去雾程序部分" class="headerlink" title="图像去雾程序部分"></a>图像去雾程序部分</h2><p>下面定义了一个函数 dehaze_image，用于对输入的雾霾图像进行去雾处理并展示处理前后的对比效果。具体流程如下：</p>
+<p>首先，加载和预处理图像：通过 Image.open 打开输入图像并将其转换为 NumPy 数组，然后归一化到 [0, 1] 之间；保存一份原始图像用于对比；将图像转换为 PyTorch 张量并调整维度，以适应模型输入要求。加载预训练模型：创建一个 U-Net 模型实例 dehaze_net，将其设置为评估模式（eval()），并加载预训练的模型参数（通过 load_state_dict 方法从指定路径加载参数）；去雾处理：将预处理后的图像输入模型，得到去雾后的输出图像。通过 detach() 方法从计算图中分离输出，转换为 NumPy 数组，并调整维度以恢复为图像格式；展示和保存结果：使用 matplotlib 绘制原始图像和去雾后的图像对比图，关闭坐标轴并设置标题，然后保存对比图到指定路径，并展示图像；返回结果：返回去雾处理后的图像。</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps24.jpg" alt="img"> </p>
+<p>主函数是对一组图像进行去雾处理，计算并输出每张图像处理所花费的时间以及总的处理时间，并保存处理后的图像</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps25.jpg" alt="img"> </p>
+<h2 id="程序优化"><a href="#程序优化" class="headerlink" title="程序优化"></a>程序优化</h2><h3 id="使用混合精度训练"><a href="#使用混合精度训练" class="headerlink" title="使用混合精度训练"></a>使用混合精度训练</h3><p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps26.jpg" alt="img"> </p>
+<p>使用混合精度训练地优点：</p>
+<p>1.显存利用率提高：使用FP16存储可以显著减少模型和优化器中的张量大小，从而允许更大的批量大小或更复杂的模型在显存有限的环境中训练。</p>
+<p>2.训练速度加快：减少了计算开销，特别是在具有大量参数和复杂计算的网络中，混合精度训练可以显著加快训练速度。</p>
+<p>3.模型性能维持：通过GradScaler的梯度缩放机制，能够保持模型在FP16精度下的数值稳定性，同时几乎不影响最终模型的性能和精度。</p>
+<h3 id="学习率调度"><a href="#学习率调度" class="headerlink" title="学习率调度"></a>学习率调度</h3><p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps27.jpg" alt="img"> </p>
+<p>使用学习率调度的优点是学习率控制了参数更新的步长，即每次优化器根据损失函数计算出的梯度更新参数的幅度。合适的学习率能够保证模型在训练过程中稳定地收敛到局部或全局最优解，而过高或过低的学习率则可能导致训练不稳定或者收敛速度过慢</p>
+<h3 id="日志记录："><a href="#日志记录：" class="headerlink" title="日志记录："></a>日志记录：</h3><p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps28.jpg" alt="img"> </p>
+<p>\1. 跟踪训练和验证过程中的损失变化： 在训练神经网络（如U-Net模型）时，您可以使用日志记录训练和验证过程中的损失值。这些损失值可以帮助您监视模型在每个epoch或每个批次中的性能，评估训练的效果，并且在需要时进行调整。</p>
+<p> 2.记录模型的学习率调整情况： 如果您在训练中使用了学习率调度器（比如StepLR），日志可以记录每个epoch后学习率的变化情况。这有助于您了解学习率策略的实际效果，以及是否需要调整调度器的参数。</p>
+<p>3.记录模型训练的进度和状态： 您可以使用日志记录训练的进度，例如每个epoch的开始和结束时间、训练集和验证集的大小，以及其他关键参数。这有助于您跟踪训练的整体进展，并在需要时进行分析和比较不同训练运行之间的差异。</p>
+<p>4.记录模型性能和效果： 在应用阶段，如使用模型对图片进行去雾时，您可以记录每张图片的处理时间、处理结果的质量评估等信息。这些信息可以帮助您评估模型在实际场景中的表现，并进行必要的调整和优化。</p>
+<h3 id="双线性插值上采样"><a href="#双线性插值上采样" class="headerlink" title="双线性插值上采样"></a>双线性插值上采样</h3><p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps29.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps30.jpg" alt="img"> </p>
+<p>使用的优点：</p>
+<p>双线性插值有什么好处？双线性插值在实现一到多的映射关系使用插值计算公式， </p>
+<p>所以双线性插值方法不需要学习任何参数。在处理图像上，利用已知邻近像素点的灰度 </p>
+<p>值或 RGB 中的三色值产生未知像素点的灰度值或 RGB 三色值，可以达到由原始图像再生出具有更高分辨率图像的目的。在图像特征恢复的过程中，双线性插值对两个维度上分别进行线性插值计算，通过计算四个周围纹理像素的属性（颜色、透明度等）的平均值，并将其应用于特征恢复后的 featureMap，双线性插值可以保证灰度值（指某种颜色的亮度）的连续及图像的渐变关系，因为它考虑了待估计像素点周围四个直接邻点对该像素点的相关性影响，这样估计出来的 featureMap 具有更高质量的像素点，总之，双线性插值可以避免棋盘效应的发生，使去雾还原后的图像像素点具有更好的连续性，图像具有更高的分辨率，相较于转置卷积增强了去雾图像的质量，具体是：</p>
+<p> 1.保留图像细节： 双线性插值是一种光滑的插值方法，能够在图像上采样时保留相对较好的细节。它通过对邻近像素的加权平均来计算新像素的值，因此能够在一定程度上减少锯齿状边缘（aliasing）效应，使得生成的高分辨率图像更加平滑和真实。</p>
+<p>2.计算简单高效： 双线性插值只需要对周围四个像素进行线性插值计算，计算量相对较小。这使得双线性插值在实际应用中具有较高的速度和效率，尤其是对于大尺寸图像的处理。</p>
+<p>3.可用性广泛： 双线性插值是一种通用且易于实现的插值方法，在各种图像处理软件和硬件中广泛应用。它在不同的图像处理任务中，如图像上采样、图像变换等方面都能提供良好的效果和稳定性。</p>
+<p>4.实现简单： 在深度学习框架中，如PyTorch中的nn.Upsample函数使用双线性插值作为默认的上采样方法，直接调用即可。这简化了模型开发和调试过程，同时保证了高效的图像上采样处理</p>
+<h3 id="UI界面调试："><a href="#UI界面调试：" class="headerlink" title="UI界面调试："></a>UI界面调试：</h3><p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps31.jpg" alt="img"> </p>
+<p>上面的代码是对图片进行整体化处理，但是有时候不需要对这么多数据进行处理，反而影响效率，所以为了显示的简单好用，我设计了一个UI界面进行使用：</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps32.jpg" alt="img"> </p>
+<h1 id="4-结果分析"><a href="#4-结果分析" class="headerlink" title="4.结果分析"></a>4.结果分析</h1><p>将未进行程序优化前的模型训练30次的网络模型导入后进行运行，得到几组图片如下（左侧为有雾图片，右边为去雾后图片）</p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps33.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps34.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps35.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps36.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps37.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps38.jpg" alt="img"> </p>
+<p><img src="/../images/%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4/wps39.jpg" alt="img"> </p>
+<h3 id="优点展示："><a href="#优点展示：" class="headerlink" title="优点展示："></a>优点展示：</h3><p>从整体去雾效果分析，unet进行去雾有着明显的增强，可以去除雾，将结果清晰展示出来，这个去雾算法能保证去雾后的图像灰度值的连续及图像颜色的渐变关系得到很好的处理，可以有效避免“****棋盘效应****”的放生，使去雾后的图像的像素点具有更好的连续性，对于边缘的处理也是比较合适。</p>
+<h3 id="不足分析"><a href="#不足分析" class="headerlink" title="不足分析"></a>不足分析</h3><p>1.失真问题：去除雾霾可能会导致图像失真或细节丢失。特别是在处理强烈雾霾的情况下，算法可能无法准确地还原原始图像的细节，导致输出图像看起来不自然或模糊。</p>
+<p>2.边缘锐化不足：有时候去雾算法可能会导致图像边缘模糊或缺乏清晰度，这可能影响视觉感知和后续图像处理任务的准确性。</p>
+<p>3.光照变化引入：去雾过程中，可能会引入光照变化或颜色偏移，尤其是在强烈的雾霾场景下。这些变化可能不符合原始图像的真实光照条件，导致图像看起来不自然。</p>
+<p>4.复杂场景处理：对于复杂的场景或者多种类型的雾霾，单一的去雾算法可能无法适应所有情况。例如，不同类型的雾霾（如烟雾、雾气、汽雾等）可能需要不同的处理策略。</p>
+<p>5.计算复杂度：某些高效的去雾算法可能需要大量计算资源或较长的处理时间，特别是在处理大尺寸或高分辨率图像时。这可能限制了算法在实时或大规模应用中的实用性。</p>
+<p>6.参数调优：许多去雾算法可能需要对参数进行精细调整，以在不同场景和条件下获得最佳效果。这需要经验丰富的用户或者自动化调整方法来优化参数设置。</p>
+<p>7.实时性和应用：一些去雾算法虽然在静态场景中表现良好，但在动态或实时视频处理中可能面临挑战。处理速度和实时性是实际应用中需要考虑的重要因素。</p>
+<p>可以看到，在色彩处理方面相对于最初的模型有所提升，但是整体的图片颜色有些渲染过度，照片整体偏暖色调，对比度有所上升。</p>
+<h1 id="5-下一步工作计划"><a href="#5-下一步工作计划" class="headerlink" title="5.下一步工作计划"></a>5.下一步工作计划</h1><p>1.性能优化和调试：</p>
+<p> 优化模型性能：进一步优化和调整U-Net模型的结构和超参数，如调整编码器和解码器的层数或通道数，以提高去雾效果和速度。</p>
+<p>调试和错误修复：检查代码中的潜在错误或问题，确保模型在各种输入条件下都能稳定运行。</p>
+<p>2.数据集扩展和增强：</p>
+<p> 增加数据多样性：考虑扩展训练数据集，包括更多不同天气条件下的图像，以增强模型的泛化能力和鲁棒性。</p>
+<p>实施更多的数据增强技术：如随机旋转、镜像翻转、颜色增强等，以增加训练数据的多样性，提升模型的泛化性能。</p>
+<p> 3.模型评估和性能指标：</p>
+<p>详细评估模型效果：使用验证集或测试集评估模型在不同场景下的表现，考虑采用适当的评估指标如PSNR、SSIM等。</p>
+<p>比较不同模型：尝试比较不同的去雾方法和模型结构，分析其优缺点，选择最适合任务需求的模型。</p>
+<p>\4. 继续学习和研究：</p>
+<p> 探索新技术和方法：关注最新的去雾技术和深度学习进展，保持学习和探索的态度，不断提升自己在图像处理领域的专业知识和技能。</p>
+<p>。</p>
+<h1 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h1><p>[1] 郭璠,蔡自兴,谢斌,唐琎.图像去雾技术研究综述与展望[J].计算机应用,2010,30(09):2417-2421.</p>
+<p>[2] 蒋建国,侯天峰,齐美彬.改进的基于暗原色先验的图像去雾算法[J].电路与系统学报,2011,16(02):7-12.</p>
+<p>[3] <a target="_blank" rel="noopener" href="https://blog.csdn.net/Flag_ing/article/details/108923617">https://blog.csdn.net/Flag_ing/article/details/108923617</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="http://t.csdn.cn/HMVUy">http://t.csdn.cn/HMVUy</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38324954/article/details/115893674">常见的上采样方法（双线性插值，反卷积，反池化）_双线性上采样-CSDN博客</a></p>
+<h1 id="代码与数据集下载："><a href="#代码与数据集下载：" class="headerlink" title="代码与数据集下载："></a>代码与数据集下载：</h1><p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1Zv4IXPdAVnJoB2t2OPdHQg?pwd=ojom">https://pan.baidu.com/s/1Zv4IXPdAVnJoB2t2OPdHQg?pwd=ojom</a><br>提取码：ojom<br>–来自百度网盘超级会员V2的分享</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://xiaowaaa.asia">小Waaa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://xiaowaaa.asia/post/d0695f23.html">http://xiaowaaa.asia/post/d0695f23.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://xiaowaaa.asia" target="_blank">贩卖日落</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB/">模式识别</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/post/ffc93090.html" title="6.12刷题记录"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">6.12刷题记录</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">小Waaa</div><div class="author-info__description">My_Blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">13</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xiaowaaao"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:3044506953@qq.com" target="_blank" title="Email"><i class="iconfont icon-youxiang"></i></a><a class="social-icon" href="tencent://message/?uin=3044506953&amp;Site=Sambow&amp;Menu=yes" target="_blank" title="QQ"><i class="iconfont icon-QQ"></i></a><a class="social-icon" href="https://github.com/xiaowaaao" target="_blank" title="GitHub"><i class="iconfont icon-GitHub"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EU-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%AF%B9%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E8%AF%86%E5%88%AB%E4%B8%8E%E5%8E%BB%E9%99%A4"><span class="toc-number">1.</span> <span class="toc-text">基于U-net网络实现的对图像去雾识别与去除</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E4%BB%A5%E5%8F%8A%E7%A0%94%E7%A9%B6%E6%84%8F%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">1  研究背景以及研究意义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E5%AE%9E%E9%9C%80%E6%B1%82"><span class="toc-number">2.1.</span> <span class="toc-text">现实需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">图像去雾的常见方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%BF%9B%E8%A1%8C%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE"><span class="toc-number">2.3.</span> <span class="toc-text">利用模式识别与机器学习进行图像去雾</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%B7%A5%E5%85%B7%E5%8F%8A%E5%8E%9F%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">2  工具及原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-U-Net%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">3.1.</span> <span class="toc-text">1 U-Net神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E5%99%A8%E9%83%A8%E5%88%86"><span class="toc-number">3.2.</span> <span class="toc-text">编码器部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E7%A0%81%E5%99%A8%E9%83%A8%E5%88%86"><span class="toc-number">3.3.</span> <span class="toc-text">解码器部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">3.4.</span> <span class="toc-text">损失函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B"><span class="toc-number">3.5.</span> <span class="toc-text">训练过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8u-net%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E7%9A%84%E8%BF%87%E7%A8%8B%E6%A6%82%E8%BF%B0"><span class="toc-number">3.6.</span> <span class="toc-text">利用u-net网络实现图像去雾的过程概述</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">3. 代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="toc-number">4.1.</span> <span class="toc-text">目录结构：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E7%A8%8B%E5%BA%8F%E9%83%A8%E5%88%86"><span class="toc-number">4.2.</span> <span class="toc-text">训练程序部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#U-Net%E7%BD%91%E7%BB%9C%E7%A8%8B%E5%BA%8F%E9%83%A8%E5%88%86"><span class="toc-number">4.3.</span> <span class="toc-text">U-Net网络程序部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%99%A8%E9%83%A8%E5%88%86"><span class="toc-number">4.4.</span> <span class="toc-text">数据加载器部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%8E%BB%E9%9B%BE%E7%A8%8B%E5%BA%8F%E9%83%A8%E5%88%86"><span class="toc-number">4.5.</span> <span class="toc-text">图像去雾程序部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%BC%98%E5%8C%96"><span class="toc-number">4.6.</span> <span class="toc-text">程序优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%B7%B7%E5%90%88%E7%B2%BE%E5%BA%A6%E8%AE%AD%E7%BB%83"><span class="toc-number">4.6.1.</span> <span class="toc-text">使用混合精度训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%8E%87%E8%B0%83%E5%BA%A6"><span class="toc-number">4.6.2.</span> <span class="toc-text">学习率调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%EF%BC%9A"><span class="toc-number">4.6.3.</span> <span class="toc-text">日志记录：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E7%BA%BF%E6%80%A7%E6%8F%92%E5%80%BC%E4%B8%8A%E9%87%87%E6%A0%B7"><span class="toc-number">4.6.4.</span> <span class="toc-text">双线性插值上采样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UI%E7%95%8C%E9%9D%A2%E8%B0%83%E8%AF%95%EF%BC%9A"><span class="toc-number">4.6.5.</span> <span class="toc-text">UI界面调试：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="toc-number">5.</span> <span class="toc-text">4.结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9%E5%B1%95%E7%A4%BA%EF%BC%9A"><span class="toc-number">5.0.1.</span> <span class="toc-text">优点展示：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3%E5%88%86%E6%9E%90"><span class="toc-number">5.0.2.</span> <span class="toc-text">不足分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E4%B8%8B%E4%B8%80%E6%AD%A5%E5%B7%A5%E4%BD%9C%E8%AE%A1%E5%88%92"><span class="toc-number">6.</span> <span class="toc-text">5.下一步工作计划</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE%EF%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">参考文献：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD%EF%BC%9A"><span class="toc-number">8.</span> <span class="toc-text">代码与数据集下载：</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/d0695f23.html" title="基于U-net网络实现的对图像去雾识别与去除">基于U-net网络实现的对图像去雾识别与去除</a><time datetime="2024-06-21T04:47:29.000Z" title="发表于 2024-06-21 12:47:29">2024-06-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/ffc93090.html" title="6.12刷题记录">6.12刷题记录</a><time datetime="2024-06-12T12:20:45.000Z" title="发表于 2024-06-12 20:20:45">2024-06-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/22ff8c1.html" title="AES-128算法详解">AES-128算法详解</a><time datetime="2024-06-11T13:12:14.000Z" title="发表于 2024-06-11 21:12:14">2024-06-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/ae3c1cfa.html" title="6.10刷题">6.10刷题</a><time datetime="2024-06-10T12:31:04.000Z" title="发表于 2024-06-10 20:31:04">2024-06-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/e14d0785.html" title="C的学习">C的学习</a><time datetime="2024-06-10T10:34:36.000Z" title="发表于 2024-06-10 18:34:36">2024-06-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 小Waaa</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script src="js/font.js"></script><script src="js/jquery.js"></script><script src="js/foot.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>
